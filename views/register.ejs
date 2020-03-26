@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Register</h1>
-
+    <%= msg %> 
     <form action="/user/add" method="POST">
         <label for="username">Username</label><br>
         <input type="text" name="username" placeholder="jhon_doe" required><br><br>
@@ -19,6 +19,6 @@
         <input type="password" name="confirm"><br><br>
         <input type="submit" value="register" required>
     </form>
-    <a href="/user"><h4>Back</h4></a>
+    <a href="/user/login"><h4>Back</h4></a>
 </body>
 </html>

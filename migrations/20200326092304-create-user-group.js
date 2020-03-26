@@ -9,10 +9,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       UserId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references : {
+          model : 'Users',
+          key : 'id'
+        },
+        onDelete : 'CASCADE',
+        OnUpdate : 'CASCADE'
       },
       GroupId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references : {
+          model : 'Groups',
+          key : 'id'
+        },
+        onDelete : 'CASCADE',
+        OnUpdate : 'CASCADE'
       },
       createdAt: {
         allowNull: false,

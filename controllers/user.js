@@ -1,11 +1,15 @@
 const { User, Group, UserGrup } = require('../models')
+const sendEmail = require('../helpers/sendEmail')
 
 class Controller {
 
 
     static registerForm(req, res){
 
-        res.render('register')
+        let msg = req.app.locals.message || ''
+        delete req.app.locals.message 
+
+        res.render('register', { msg })
 
     }
 
@@ -20,18 +24,37 @@ class Controller {
 
         if ( password === confirm ){
 
-            const data = { username, email, password }
-            User.create(data)
-            .then(() => {
-                
-                res.redirect('/user/register')
+            User.findOne({
+                where : { username }
+            })
+            .then((data) => {
+
+                if(!data){
+                    const data = { username, email, password }
+                    User.create(data)
+                    .then(() => {
+                        
+                        req.app.locals.message = 'Thanks for signing up, please check your email for confirmation'
+                        
+                        sendEmail(email)
+                        
+                        res.redirect('/user/register')
+                    })
+        
+                    .catch((err) => {
+                        res.send(err)
+                    })
+                } else {
+                    
+                    req.app.locals.message = 'username already exist'
+                    
+                    res.redirect('/user/register')
+                }
             })
 
-            .catch((err) => {
-                res.send(err)
-            })
         } else {
-            res.send('password tidak boleh sama')
+            req.app.locals.message = 'confirmasi tdk valid'
+            res.redirect('/user/register')
         }
     }
 
@@ -43,18 +66,17 @@ class Controller {
             where : { username, password }
         })
         .then((data) => {
-            
-            
-            req.session.user = data.username
-
 
             if (data){
+
+                req.session.user = data.username
                 const { user } = req.session
-                res.render('dashboard', { user })
+                
+                res.render('dashboard', { data, user })
 
             } else {
                 // req.session.user = user.dataValues;
-                res.redirect('/user')
+                res.redirect('/user/login')
             }
             
         })
@@ -64,7 +86,17 @@ class Controller {
     static dashboard(req, res){
 
         const { user } = req.session
-       res.render('dashboard', { user })
+
+        User.findOne({
+            username : user
+        })
+        .then((data) => {
+
+            res.render('dashboard', {data, user })
+        
+        })
+
+      
 
     }
     

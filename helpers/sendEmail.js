@@ -13,10 +13,10 @@ var transporter = nodemail.createTransport({
 function sendEmail(emailTo) {
 
       var msg = {
-        from: 'inggards94@gmail.com',
+        from: 'ldrmcc88@gmail.com',
         to: emailTo,
         subject: 'Welcome to LDR Meeting',
-        text: 'That was easy!'
+        text: 'Thank you for signing up !!!'
       };
       
       transporter.sendMail(msg, (error, info) => {

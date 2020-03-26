@@ -3,13 +3,13 @@ const controller = require('../controllers/user')
 
 
 
-router.get('/', (req,res,next) => {
+router.get('/dashboard', (req,res,next) => {
     
     if(req.session.user){
         next()
     } else {
 
-        res.redirect('/user/login')
+        res.redirect('/user/login/')
     }
 
 }, controller.dashboard)
