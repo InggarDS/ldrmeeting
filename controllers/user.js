@@ -136,7 +136,7 @@ class Controller {
 
         User.findAll()
         .then((data) => {
-
+            
             res.render('addMember', { data })
         })
         .catch((err) => {

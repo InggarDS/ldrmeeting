@@ -47,17 +47,21 @@
                 <td><%= el.email %></td>
             </tr>
       <%  }) %> 
-    </table>
-    
+    </table> <br>
+
+    <h4>Make Appointment</h4>
     <form action="/group/member/invite" method="POST">
+        <label for="groupId">ID Group</label>
+        <input type="text" name="groupId" value= <%= id %> > <br><br>
+
         <label for="title">Topic : </label>
-        <input type="text" name="topic"><br>
+        <input type="text" name="title"><br>
         <label for="date">date : </label>
         <input type="date" data-date-inline-picker="true" name="date"><br>
         <label for="time">Time : </label>
         <input type="time" name="time" value="23.00"><br><br>
         <input type="submit" value = "send to all member">
     </form>
-    
+
 </body>
 </html>
