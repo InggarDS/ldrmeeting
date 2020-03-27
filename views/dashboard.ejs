@@ -16,6 +16,40 @@
                 </div>
             </div>
         </nav>
-        <h4><a href="/group/add/<%= data.id %>">Create Group</a></h4>
+        <h4><a href="/group/add/<%= data.id %>">Create Group</a></h4> <br>
+        <style>
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+            
+            td, th {
+              border: 1px solid #dddddd;
+              text-align: left;
+              padding: 8px;
+            }
+            
+            tr:nth-child(even) {
+              background-color: #dddddd;
+            }
+         </style>
+
+        <h3>Your Group</h3>
+        <table>
+            <th>Group</th>
+            <th>Action</th>
+
+            <% datas[0].Groups.forEach(el => { %>
+                <tr>
+                    <td> <%= el.name %> </td>
+                    <td> <a href="/group/member/<%= el.id %>">Enter</a></td>
+                </tr>
+          <%  }) %> 
+
+        </table>
+
+
+
     </body>
 </html>

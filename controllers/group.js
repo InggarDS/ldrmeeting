@@ -1,4 +1,4 @@
-const { UserGroup, Group } = require('../models')
+const { User, UserGroup, Group } = require('../models')
 
 class Controller {
    
@@ -40,6 +40,60 @@ class Controller {
        })
         
 
+
+    }
+
+    static addMemberForm(req, res){ 
+
+        let id = req.params.groupId
+        User.findAll()
+        .then((data) => {
+            
+            Group.findAll({
+                where : { id : id },
+                include : [{
+                    model : User
+                }]
+            })
+            .then((group) => {
+                
+                 res.render('addMember', { data, id , group})
+            })
+           
+        })
+        .catch((err) => {
+
+            res.send(err)
+        })
+
+    }
+
+    static addMember(req, res){
+
+        let data = {
+            UserId : +req.body.member,
+            GroupId : +req.body.idgroup
+        }
+
+        console.log(data);
+        
+        UserGroup.create( { data } )
+        .then(() => {
+            
+            Group.findAll({
+                where : { id : req.body.idgroup },
+                include : [{
+                    model : User
+                }]
+            })
+            .then((group) => {
+
+                res.render('addMember', { group })
+            })
+        })
+        .catch((err) => {
+            res.send(err)
+        })
 
     }
 

@@ -1,0 +1,30 @@
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+ </style>
+
+<h3>Member</h3>
+<table>
+    <th>Group</th>
+    <th>Action</th>
+    
+    <% datas[0].Groups.forEach(el => { %>
+        <tr>
+            <td> <%= el.name %> </td>
+  <%  }) %> 
+
+</table>
+

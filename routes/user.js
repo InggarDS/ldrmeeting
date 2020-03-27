@@ -19,5 +19,7 @@ router.get('/login', controller.loginForm)
 router.post('/add', controller.register)
 router.post('/login', controller.login)
 router.get('/logout', controller.logout)
+router.get('/group/member/:groupId', controller.addMemberForm)
+router.post('/group/member', controller.addMember)
 
 module.exports = router

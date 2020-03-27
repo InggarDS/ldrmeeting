@@ -68,14 +68,24 @@ class Controller {
         .then((data) => {
 
             if (data){
-
-                req.session.user = data.username
-                const { user } = req.session
                 
-                res.render('dashboard', { data, user })
+                req.session.user = username
+                const { user } = req.session
+
+                User.findAll({
+                    where : {
+                        username : user
+                    }, include : [{
+                        model : Group
+                    }]
+                })
+                .then((datas) => {
+                //    res.send(datas[0].Groups[0])
+                    
+                   res.render('dashboard', {data, user, datas })
+                })
 
             } else {
-                // req.session.user = user.dataValues;
                 res.redirect('/user/login')
             }
             
@@ -92,22 +102,54 @@ class Controller {
         })
         .then((data) => {
 
-            res.render('dashboard', {data, user })
+            User.findAll({
+                where : {
+                    username : user
+                }, include : [{
+                    model : Group
+                }]
+            })
+            .then((datas) => {
+
+                res.render('dashboard', {data, user, datas })
+            })
+                 
+            
+           
         
         })
-
-      
 
     }
     
     static logout(req, res){
         if (req.session.user) {
-            
             req.session.destroy((err) => {   
                 res.redirect('/user/login')
             })
 
         }
+    }
+
+    // router.get('/group/member/:groupId', controller.addMemberForm)
+
+    static addMemberForm(req, res){ 
+
+        User.findAll()
+        .then((data) => {
+
+            res.render('addMember', { data })
+        })
+        .catch((err) => {
+
+            res.send(err)
+        })
+
+    }
+
+    static addMember(req, res){
+
+
+
     }
 
 
