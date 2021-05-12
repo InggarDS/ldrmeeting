@@ -23,7 +23,7 @@
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
-    "nodemailer": "^6.4.6",
+    "nodemailer": "^6.4.16",
     "nodemailer-mailgun-transport": "^2.0.0",
     "pg": "^7.18.2",
     "sequelize": "^5.21.5",
